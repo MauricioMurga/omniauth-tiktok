@@ -27,7 +27,12 @@ module OmniAuth
       uid { access_token.params['open_id'] }
 
       info do
-        prune!('nickname' => raw_info['data']['display_name'])
+        result = {
+          'nickname' => raw_info['data']['display_name'],
+          'image' => raw_info['data']['avatar_larger']
+        }
+
+        prune!(result)
       end
 
       extra do
