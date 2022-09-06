@@ -58,8 +58,9 @@ module OmniAuth
                       .parsed || {}
       end
 
+      # Remove params as callback URL must match exactly the URL defined for the application
       def callback_url
-        options[:callback_url] || (full_host + script_name + callback_path)
+        URI.parse(super).host
       end
 
       def authorize_params
